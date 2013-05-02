@@ -13,7 +13,7 @@ or [Marmalade][marmalade],
 you'll need to add the directory containing `flycheck-color-mode-line.el` to your
 `load-path`, and then
 
-    (require 'flymake-elixir)
+    (require 'flycheck-color-mode-line)
 
     (eval-after-load "flycheck"
       '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
@@ -39,7 +39,7 @@ and the [Powerline package][powerline].
 Thanks
 ------
 
-- [Thomas Järvstrand][tjarvstrand] for the initial code from the excellent EDTS package
+- [Thomas Järvstrand][tjarvstrand] for the initial code from the excellent [EDTS mode][edts].
 - [Sebastian Wiesner][lunaryorn] for flycheck and his awesome support.
 
 
@@ -49,4 +49,5 @@ Thanks
 [solarized]: http://github.com/bbatsov/solarized-emacs
 [powerline]: http://github.com/milkypostman/powerline
 [tjarvstrand]: http://github.com/tjarvstrand
+[edts]: http://github.com/tjarvstrand/edts
 [lunaryorn]: http://github.com/lunaryorn
