@@ -27,13 +27,13 @@ and the [Powerline package][powerline].
 
 **Solarized Light**
 
-![mode line with solarized light warning](https://github.com/syl20bnr/flycheck-color-mode-line/doc/flycheck-color-mode-line-light-w.png)
-![mode line with solarized light error](https://github.com/syl20bnr/flycheck-color-mode-line/doc/flycheck-color-mode-line-light-e.png)
+![mode line with solarized light warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-light-e.png)
+![mode line with solarized light error](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-light-w.png)
 
 **Solarized Dark**
 
-![mode line with solarized light warning](https://github.com/syl20bnr/flycheck-color-mode-line/doc/flycheck-color-mode-line-dark-w.png)
-![mode line with solarized light error](https://github.com/syl20bnr/flycheck-color-mode-line/doc/flycheck-color-mode-line-dark-e.png)
+![mode line with solarized light warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-e.png)
+![mode line with solarized light error](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-w.png)
 
 
 Thanks
