@@ -4,8 +4,8 @@
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience language tools
-;; Version: 0.1
-;; Package-Requires: ((flycheck "0.11") (dash "1.2"))
+;; Version: 0.2
+;; Package-Requires: ((flycheck "0.13") (dash "1.2") (emacs "24.1"))
  
 ;; This file is not part of GNU Emacs.
  
@@ -47,20 +47,15 @@
  
 ;;;; Customization
 (defface flycheck-color-mode-line-error-face
-  '((default (:foreground "white" :underline nil
-                          :weight normal
-                          :inherit flycheck-error-face)))
+  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-error))
   "Face for the modeline in buffers with Flycheck errors."
-  :group 'flycheck)
+  :group 'flycheck-faces)
  
 (defface flycheck-color-mode-line-warning-face
-  '((default (:foreground "white" :underline nil
-                          :weight normal
-                          :inherit flycheck-warning-face)))
+  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-warning))
   "Face for the modeline in buffers with only Flycheck warnings."
-  :group 'flycheck)
- 
- 
+  :group 'flycheck-faces)
+
 ;;;; Modeline face remapping
 (defvar-local flycheck-color-mode-line-cookie nil
   "Cookie for the remapped modeline face.

@@ -9,14 +9,28 @@ Installation
 ------------
 
 If you choose not to use one of the convenient packages in [Melpa][melpa]
-or [Marmalade][marmalade],
-you'll need to add the directory containing `flycheck-color-mode-line.el` to your
-`load-path`, and then
+or [Marmalade][marmalade], you'll need to add the directory containing
+`flycheck-color-mode-line.el` to your `load-path`.
+
+
+Configuration
+-------------
+
+Put this code in your init file:
 
     (require 'flycheck-color-mode-line)
 
     (eval-after-load "flycheck"
       '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+
+Customization
+-------------
+
+The faces can be customized in the customization group `flycheck-faces`:
+
+    M-x customize-group
+    flycheck-faces
 
 
 Examples
