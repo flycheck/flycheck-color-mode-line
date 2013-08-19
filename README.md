@@ -57,7 +57,7 @@ Thanks
 - [Sebastian Wiesner][lunaryorn] for flycheck and his awesome support.
 
 
-[flycheck]: http://github.com/lunaryorn/flycheck
+[flycheck]: http://github.com/flycheck/flycheck
 [melpa]: http://melpa.milkbox.net
 [marmalade]: http://marmalade-repo.org
 [solarized]: http://github.com/bbatsov/solarized-emacs
