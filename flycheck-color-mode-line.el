@@ -4,8 +4,8 @@
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience language tools
-;; Version: 0.2
-;; Package-Requires: ((flycheck "0.13") (dash "1.2") (emacs "24.1"))
+;; Version: 0.3
+;; Package-Requires: ((flycheck "0.15") (dash "1.2") (emacs "24.1"))
  
 ;; This file is not part of GNU Emacs.
  
@@ -56,6 +56,11 @@
   "Face for the modeline in buffers with only Flycheck warnings."
   :group 'flycheck-faces)
 
+(defface flycheck-color-mode-line-info-face
+  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-info))
+  "Face for the modeline in buffers with only Flycheck info."
+  :group 'flycheck-faces)
+
 ;;;; Modeline face remapping
 (defvar-local flycheck-color-mode-line-cookie nil
   "Cookie for the remapped modeline face.
@@ -74,7 +79,9 @@ Used to restore the original mode line face.")
   (-when-let (face (cond ((flycheck-has-current-errors-p 'error)
                           'flycheck-color-mode-line-error-face)
                          ((flycheck-has-current-errors-p 'warning)
-                          'flycheck-color-mode-line-warning-face)))
+                          'flycheck-color-mode-line-warning-face)
+                         ((flycheck-has-current-errors-p 'info)
+                          'flycheck-color-mode-line-info-face)))
     (setq flycheck-color-mode-line-cookie
           (face-remap-add-relative 'mode-line face))))
  
