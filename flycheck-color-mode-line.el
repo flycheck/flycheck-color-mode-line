@@ -47,17 +47,17 @@
 
 ;;;; Customization
 (defface flycheck-color-mode-line-error-face
-  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-error))
+  '((t :inherit flycheck-fringe-error))
   "Face for the modeline in buffers with Flycheck errors."
   :group 'flycheck-faces)
 
 (defface flycheck-color-mode-line-warning-face
-  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-warning))
+  '((t :inherit flycheck-fringe-warning))
   "Face for the modeline in buffers with only Flycheck warnings."
   :group 'flycheck-faces)
 
 (defface flycheck-color-mode-line-info-face
-  '((t :foreground "#efefef" :weight normal :inherit flycheck-fringe-info))
+  '((t :inherit flycheck-fringe-info))
   "Face for the modeline in buffers with only Flycheck info."
   :group 'flycheck-faces)
 
