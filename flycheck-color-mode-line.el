@@ -61,6 +61,16 @@
   "Face for the modeline in buffers with only Flycheck info."
   :group 'flycheck-faces)
 
+(defcustom flycheck-color-mode-line-use-running-face nil
+  "Whether to apply a special face when Flycheck is running."
+  :group 'flycheck-faces
+  :type 'boolean)
+
+(defface flycheck-color-mode-line-running-face
+  '((t :inherit font-lock-comment-face))
+  "Face for the modeline in buffers where Flycheck is running."
+  :group 'flycheck-faces)
+
 (defcustom flycheck-color-mode-line-face-to-color
   'mode-line
   "Symbol identifying which face to remap.
@@ -81,10 +91,15 @@ Used to restore the original mode line face.")
     (face-remap-remove-relative flycheck-color-mode-line-cookie)
     (setq flycheck-color-mode-line-cookie nil)))
 
-(defun flycheck-color-mode-line-update ()
+;; note: "status" is passed when called from flycheck-status-changed-functions,
+;; but we ignore it.
+(defun flycheck-color-mode-line-update (&optional status)
   "Update the mode line face according to the Flycheck status."
   (flycheck-color-mode-line-reset)
-  (-when-let (face (cond ((flycheck-has-current-errors-p 'error)
+  (-when-let (face (cond ((and flycheck-color-mode-line-use-running-face
+                               (eq flycheck-last-status-change 'running))
+                          'flycheck-color-mode-line-running-face)
+                         ((flycheck-has-current-errors-p 'error)
                           'flycheck-color-mode-line-error-face)
                          ((flycheck-has-current-errors-p 'warning)
                           'flycheck-color-mode-line-warning-face)
@@ -116,6 +131,8 @@ Otherwise behave as if called interactively."
               #'flycheck-color-mode-line-update nil t)
     (add-hook 'flycheck-syntax-check-failed-hook
               #'flycheck-color-mode-line-reset nil t)
+    (add-hook 'flycheck-status-changed-functions
+              #'flycheck-color-mode-line-update nil t)
 
     (flycheck-color-mode-line-update))
    (:else
@@ -123,6 +140,8 @@ Otherwise behave as if called interactively."
                  #'flycheck-color-mode-line-update t)
     (remove-hook 'flycheck-syntax-check-failed-hook
                  #'flycheck-color-mode-line-reset t)
+    (remove-hook 'flycheck-status-changed-functions
+                 #'flycheck-color-mode-line-update t)
 
     (flycheck-color-mode-line-reset))))
 
