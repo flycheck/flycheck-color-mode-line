@@ -48,34 +48,41 @@
 ;;;; Customization
 (defface flycheck-color-mode-line-error-face
   '((t :inherit flycheck-fringe-error))
-  "Face for the modeline in buffers with Flycheck errors."
+  "Face remapping for the modeline in buffers with Flycheck errors.
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
   :group 'flycheck-faces)
 
 (defface flycheck-color-mode-line-warning-face
   '((t :inherit flycheck-fringe-warning))
-  "Face for the modeline in buffers with only Flycheck warnings."
+  "Face remapping for the modeline in buffers with only Flycheck warnings.
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
   :group 'flycheck-faces)
 
 (defface flycheck-color-mode-line-info-face
   '((t :inherit flycheck-fringe-info))
-  "Face for the modeline in buffers with only Flycheck info."
+  "Face remapping for the modeline in buffers with only Flycheck info.
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
   :group 'flycheck-faces)
 
-(defcustom flycheck-color-mode-line-use-running-face nil
-  "Whether to apply a special face when Flycheck is running."
-  :group 'flycheck-faces
-  :type 'boolean)
+(defface flycheck-color-mode-line-success-face
+  '((t))
+  "Face remapping for the modeline in buffers with no Flycheck feedback items.
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'.
+Customize this to actively mark buffers in which Flycheck has run
+but not reported any issues."
+  :group 'flycheck-faces)
 
 (defface flycheck-color-mode-line-running-face
   '((t :inherit font-lock-comment-face))
-  "Face for the modeline in buffers where Flycheck is running."
+  "Face remapping for the modeline in buffers where Flycheck is running.
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
   :group 'flycheck-faces)
 
 (defcustom flycheck-color-mode-line-face-to-color
   'mode-line
   "Symbol identifying which face to remap.
 While 'mode-line is the default, you might prefer to modify a
-different face, e.g. 'mode-line-buffer-id, 'fringe or 'linum."
+different face, e.g. 'mode-line-buffer-id, 'fringe, 'line-number or 'linum."
   :type 'symbol
   :group 'flycheck-faces)
 
@@ -91,20 +98,22 @@ Used to restore the original mode line face.")
     (face-remap-remove-relative flycheck-color-mode-line-cookie)
     (setq flycheck-color-mode-line-cookie nil)))
 
-;; note: "status" is passed when called from flycheck-status-changed-functions,
-;; but we ignore it.
-(defun flycheck-color-mode-line-update (&optional status)
+(defun flycheck-color-mode-line-update (status)
   "Update the mode line face according to the Flycheck status."
   (flycheck-color-mode-line-reset)
-  (-when-let (face (cond ((and flycheck-color-mode-line-use-running-face
-                               (eq flycheck-last-status-change 'running))
-                          'flycheck-color-mode-line-running-face)
-                         ((flycheck-has-current-errors-p 'error)
-                          'flycheck-color-mode-line-error-face)
-                         ((flycheck-has-current-errors-p 'warning)
-                          'flycheck-color-mode-line-warning-face)
-                         ((flycheck-has-current-errors-p 'info)
-                          'flycheck-color-mode-line-info-face)))
+  (let ((face (pcase status
+                (`finished
+                 (cond
+                  ((flycheck-has-current-errors-p 'error)
+                   'flycheck-color-mode-line-error-face)
+                  ((flycheck-has-current-errors-p 'warning)
+                   'flycheck-color-mode-line-warning-face)
+                  ((flycheck-has-current-errors-p 'info)
+                   'flycheck-color-mode-line-info-face)
+                  (t
+                   'flycheck-color-mode-line-success-face)))
+                (`running
+                 'flycheck-color-mode-line-running-face))))
     (setq flycheck-color-mode-line-cookie
           (face-remap-add-relative flycheck-color-mode-line-face-to-color face))))
 
@@ -127,19 +136,10 @@ Otherwise behave as if called interactively."
   :require 'flycheck-color-mode-line
   (cond
    (flycheck-color-mode-line-mode
-    (add-hook 'flycheck-after-syntax-check-hook
-              #'flycheck-color-mode-line-update nil t)
-    (add-hook 'flycheck-syntax-check-failed-hook
-              #'flycheck-color-mode-line-reset nil t)
     (add-hook 'flycheck-status-changed-functions
               #'flycheck-color-mode-line-update nil t)
-
-    (flycheck-color-mode-line-update))
+    (flycheck-color-mode-line-update 'unknown))
    (:else
-    (remove-hook 'flycheck-after-syntax-check-hook
-                 #'flycheck-color-mode-line-update t)
-    (remove-hook 'flycheck-syntax-check-failed-hook
-                 #'flycheck-color-mode-line-reset t)
     (remove-hook 'flycheck-status-changed-functions
                  #'flycheck-color-mode-line-update t)
 
