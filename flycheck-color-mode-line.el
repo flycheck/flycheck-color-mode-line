@@ -114,8 +114,9 @@ Used to restore the original mode line face.")
                    'flycheck-color-mode-line-success-face)))
                 (`running
                  'flycheck-color-mode-line-running-face))))
-    (setq flycheck-color-mode-line-cookie
-          (face-remap-add-relative flycheck-color-mode-line-face-to-color face))))
+    (when face
+      (setq flycheck-color-mode-line-cookie
+            (face-remap-add-relative flycheck-color-mode-line-face-to-color face)))))
 
 ;;;###autoload
 (define-minor-mode flycheck-color-mode-line-mode
