@@ -4,8 +4,9 @@
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience language tools
+;; Homepage: https://github.com/flycheck/flycheck-color-mode-line
 ;; Version: 0.3
-;; Package-Requires: ((flycheck "0.15") (dash "1.2") (emacs "24.1"))
+;; Package-Requires: ((flycheck "0.15") (dash "1.2") (emacs "24.3"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -44,6 +45,10 @@
 (require 'dash)
 (require 'flycheck)
 (require 'face-remap)
+
+(defgroup flycheck-color-mode-line nil
+  "Change mode line color with Flycheck status"
+  :group 'flycheck-faces)
 
 ;;;; Customization
 (defface flycheck-color-mode-line-error-face
