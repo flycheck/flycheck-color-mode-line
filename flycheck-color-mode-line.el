@@ -54,28 +54,24 @@
 (defface flycheck-color-mode-line-error-face
   '((t :inherit flycheck-fringe-error))
   "Face remapping for the modeline in buffers with Flycheck errors.
-This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
-  :group 'flycheck-faces)
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'.")
 
 (defface flycheck-color-mode-line-warning-face
   '((t :inherit flycheck-fringe-warning))
   "Face remapping for the modeline in buffers with only Flycheck warnings.
-This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
-  :group 'flycheck-faces)
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'.")
 
 (defface flycheck-color-mode-line-info-face
   '((t :inherit flycheck-fringe-info))
   "Face remapping for the modeline in buffers with only Flycheck info.
-This is applied to the face named in `flycheck-color-mode-line-face-to-color'."
-  :group 'flycheck-faces)
+This is applied to the face named in `flycheck-color-mode-line-face-to-color'.")
 
 (defface flycheck-color-mode-line-success-face
   '((t))
   "Face remapping for the modeline in buffers with no Flycheck feedback items.
 This is applied to the face named in `flycheck-color-mode-line-face-to-color'.
 Customize this to actively mark buffers in which Flycheck has run
-but not reported any issues."
-  :group 'flycheck-faces)
+but not reported any issues.")
 
 (defcustom flycheck-color-mode-line-show-running t
   "When non-nil, apply `flycheck-color-mode-line-running-face' when Flycheck is running."
