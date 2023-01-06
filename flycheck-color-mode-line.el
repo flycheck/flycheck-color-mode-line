@@ -109,14 +109,14 @@ Used to restore the original mode line face.")
   (let ((face (pcase status
                 (`finished
                  (cond
-                  ((flycheck-has-current-errors-p 'error)
-                   'flycheck-color-mode-line-error-face)
-                  ((flycheck-has-current-errors-p 'warning)
-                   'flycheck-color-mode-line-warning-face)
-                  ((flycheck-has-current-errors-p 'info)
+                  ((not (flycheck-has-current-errors-p))
+                   'flycheck-color-mode-line-success-face)
+                  ((flycheck-has-max-current-errors-p 'info)
                    'flycheck-color-mode-line-info-face)
-                  (t
-                   'flycheck-color-mode-line-success-face)))
+                  ((flycheck-has-max-current-errors-p 'warning)
+                   'flycheck-color-mode-line-warning-face)
+                  ((flycheck-has-max-current-errors-p 'error)
+                   'flycheck-color-mode-line-error-face)))
                 (`running
                  (when flycheck-color-mode-line-show-running
                    'flycheck-color-mode-line-running-face)))))
